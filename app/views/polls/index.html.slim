@@ -1,0 +1,31 @@
+h1 Listing polls
+
+table
+  thead
+    tr
+      th Topic
+      th Description
+      th Expires
+      th Active
+      th Created at
+      th Updated at
+      th
+      th
+      th
+
+  tbody
+    - @polls.each do |poll|
+      tr
+        td = poll.topic
+        td = poll.description
+        td = poll.expires
+        td = poll.active
+        td = poll.created_at
+        td = poll.updated_at
+        td = link_to 'Show', poll
+        td = link_to 'Edit', edit_poll_path(poll)
+        td = link_to 'Destroy', poll, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Poll', new_poll_path
