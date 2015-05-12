@@ -1,24 +1,31 @@
 p#notice = notice
 
-p
-  strong Topic:
-  = @poll.topic
-p
-  strong Description:
-  = @poll.description
-p
-  strong Expires:
-  = @poll.expires
-p
-  strong Active:
-  = @poll.active
-p
-  strong Created at:
-  = @poll.created_at
-p
-  strong Updated at:
-  = @poll.updated_at
+.well
+  .row
+    .col-sm-2
+      strong Topic
+    = @poll.topic
+  .row
+    .col-sm-2
+      strong Description
+    = @poll.description
+  .row
+    .col-sm-2
+      strong Expires
+    = @poll.expires
+  .row
+    .col-sm-2
+      strong Active
+    = @poll.active
+  .row
+    .col-sm-2
+      strong Created at
+    = @poll.created_at
+  .row
+    .col-sm-2
+      strong Updated at
+    = @poll.updated_at
 
-= link_to 'Edit', edit_poll_path(@poll)
+= link_to 'Edit', edit_poll_path(@poll), :class => 'btn'
 '|
-= link_to 'Back', polls_path
+= link_to 'Back', polls_path, :class => 'btn'
