@@ -2,7 +2,7 @@ h1 Editing poll
 
 == render 'form'
 
-= link_to 'Show', @poll, :class => 'btn'
-'|
-= link_to 'Back', polls_path, :class => 'btn'
+.btn-group
+  = link_to 'Show', @poll, :class => 'btn btn-primary'
+  = link_to 'Back', polls_path, :class => 'btn btn-default'
 
