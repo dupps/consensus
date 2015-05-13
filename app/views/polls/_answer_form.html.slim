@@ -1,0 +1,11 @@
+= form_tag answers_path, method: :post, remote: true, id: 'answer_form' do
+  = hidden_field_tag 'poll[id]', @poll.id
+
+  = render partial: 'choice', collection: @poll.choices, as: :choice
+
+  - if current_user.answered_for?(@poll)
+    p 'You have already answered!'
+  - else
+    = submit_tag 'Answer', class: 'btn btn-primary'
+  end
+end

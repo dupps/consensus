@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :polls
+  resources :answers, only: [:create]
+
   devise_for :users
 
   root 'polls#index'

@@ -3,8 +3,7 @@ p#notice = notice
 .well
   .row
     .col-sm-2
-      strong Topic
-    = @poll.topic
+      h2 = @poll.topic
   .row
     .col-sm-2
       strong Description
@@ -25,12 +24,9 @@ p#notice = notice
     .col-sm-2
       strong Updated at
     = @poll.updated_at
-  .row
-    .col-sm-2
-      strong Choices
-    - @poll.choices.each do |choice|
-      = choice.title
 
-= link_to 'Edit', edit_poll_path(@poll), :class => 'btn'
-'|
-= link_to 'Back', polls_path, :class => 'btn'
+== render 'answer_form'
+
+.btn-group
+  = link_to 'Edit', edit_poll_path(@poll), :class => 'btn btn-primary'
+  = link_to 'Back', polls_path, :class => 'btn btn-default'

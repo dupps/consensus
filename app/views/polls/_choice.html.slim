@@ -1,0 +1,7 @@
+.form-group
+  = content_tag(:label) do
+    - unless current_user.answered_for?(@poll)
+      = radio_button_tag 'choice[id]', choice.id
+    end
+    = choice.title
+  end
