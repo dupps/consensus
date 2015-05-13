@@ -2,9 +2,12 @@
   = hidden_field_tag 'poll[id]', @poll.id
 
   = render partial: 'choice', collection: @poll.choices, as: :choice
+  p
+    b Total votes: &nbsp;
+    = @poll.answers_summary
 
   - if current_user.answered_for?(@poll)
-    p 'You have already answered!'
+    .alert.alert-warning You have already answered!
   - else
     = submit_tag 'Answer', class: 'btn btn-primary'
   end

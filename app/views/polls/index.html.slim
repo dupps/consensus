@@ -1,9 +1,10 @@
 ul.nav.navbar-nav.navbar-right
   li = link_to 'New Poll', new_poll_path
-  li = link_to('Logout', destroy_user_session_path, :method => :delete)
+  li = link_to current_user.email, destroy_user_session_path, :method => :delete
 h1 Listing polls
 
-p#notice = notice
+p#notice
+  span.label.label-info = notice
 
 table class='table table-hover'
   thead
@@ -11,7 +12,7 @@ table class='table table-hover'
       th Topic
       th Description
       th Expires
-      th Choices
+      th Voted
       th
       th
       th
@@ -23,7 +24,7 @@ table class='table table-hover'
         td = poll.description
         td = poll.expires
         td
-          .badge = poll.choices.count
+          .badge = poll.answers_summary
         td = link_to 'Participate', poll, class: 'btn btn-default'
         td = link_to 'Edit', edit_poll_path(poll), class: 'btn btn-default'
         td = link_to 'Delete', poll, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'

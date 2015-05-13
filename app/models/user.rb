@@ -11,6 +11,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   def answered_for?(poll)
-    choices.any? {|v| v.poll == poll }
+    answers.any? {|v| v.choice.poll == poll}
   end
 end
