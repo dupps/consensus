@@ -3,7 +3,7 @@ class Poll < ActiveRecord::Base
   has_many :choices
   has_many :answers, through: :choices
 
-  validates_presence_of :topic, :description
+  validates_presence_of :topic, :description, :choices
 
   accepts_nested_attributes_for :choices, :reject_if => :all_blank, :allow_destroy => true
 end

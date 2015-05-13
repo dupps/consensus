@@ -9,6 +9,7 @@ table class='table table-hover'
       th Active
       th Created at
       th Updated at
+      th Choices
       th
       th
       th
@@ -22,10 +23,12 @@ table class='table table-hover'
         td = poll.active
         td = poll.created_at
         td = poll.updated_at
+        td
+          .badge = poll.choices.count
         td = link_to 'Show', poll, class: 'btn btn-default'
         td = link_to 'Edit', edit_poll_path(poll), class: 'btn btn-default'
         td = link_to 'Delete', poll, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'
 
 br
 
-= link_to 'New Poll', new_poll_path
+= link_to 'New Poll', new_poll_path, class: 'btn btn-primary'
