@@ -1,34 +1,45 @@
 = form_for @poll, html: {class: 'form-horizontal'} do |f|
   - if @poll.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@poll.errors.count, "error")} prohibited this poll from being saved:"
-      ul
-        - @poll.errors.full_messages.each do |message|
-          li = message
+      .alert.alert-danger
+        h2 = "#{pluralize(@poll.errors.count, "error")} prohibited this poll from being saved:"
+        ul
+          - @poll.errors.full_messages.each do |message|
+            li = message
 
   .form-group
     = f.label :topic, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_field :topic, class: 'form-control'
+      = f.text_field :topic, class: 'form-control', required: true
   .form-group
     = f.label :description, class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.text_area :description, class: 'form-control'
-  .form-inline
-    = f.label :expires, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.datetime_select :expires, {}, {:class => 'form-control'}
+      = f.text_area :description, class: 'form-control', required: true
   .form-group
-    = f.label :active, class: 'col-sm-2 control-label'
-    .col-sm-10.checkbox
-      = f.check_box :active
-  .form-inline
-    = f.label :created_at, class: 'col-sm-2 control-label'
+    .form-inline
+      = f.label :expires, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.datetime_select :expires, {:minute_step => 15, :default => Time.now+2.hours, :order => [:day, :month, :year]}, {:class => 'form-control'}
+
+  /.form-group
+  /  = f.label :active, class: 'col-sm-2 control-label'
+  /  .col-sm-10.checkbox
+  /    = f.check_box :active
+  /.form-inline
+  /  = f.label :created_at, class: 'col-sm-2 control-label'
+  /  .col-sm-10
+  /    = f.datetime_select :created_at, {}, {:class => 'form-control'}
+  /.form-inline
+  /  = f.label :updated_at, class: 'col-sm-2 control-label'
+  /  .col-sm-10
+  /    = f.datetime_select :updated_at, {}, {:class => 'form-control'}
+
+  .form-group
+    = f.label 'Choices', class: 'col-sm-2 control-label'
     .col-sm-10
-      = f.datetime_select :created_at, {}, {:class => 'form-control'}
-  .form-inline
-    = f.label :updated_at, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = f.datetime_select :updated_at, {}, {:class => 'form-control'}
+      = f.fields_for :choices do |choices_form|
+        == render 'choice_fields', f: choices_form
+      end
+          = link_to_add_association 'add choice', f, :choices, class: 'btn btn-default'
 
   .action = f.submit nil, :class => 'btn btn-primary'

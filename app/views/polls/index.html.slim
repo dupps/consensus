@@ -22,9 +22,9 @@ table class='table table-hover'
         td = poll.active
         td = poll.created_at
         td = poll.updated_at
-        td = link_to 'Show', poll
-        td = link_to 'Edit', edit_poll_path(poll)
-        td = link_to 'Destroy', poll, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Show', poll, class: 'btn btn-default'
+        td = link_to 'Edit', edit_poll_path(poll), class: 'btn btn-default'
+        td = link_to 'Delete', poll, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'
 
 br
 

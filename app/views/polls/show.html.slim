@@ -25,6 +25,11 @@ p#notice = notice
     .col-sm-2
       strong Updated at
     = @poll.updated_at
+  .row
+    .col-sm-2
+      strong Choices
+    - @poll.choices.each do |choice|
+      = choice.title
 
 = link_to 'Edit', edit_poll_path(@poll), :class => 'btn'
 '|
