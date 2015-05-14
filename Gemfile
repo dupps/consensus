@@ -65,4 +65,6 @@ group :development, :test do
   # Cleaning the database after test runs
   gem 'database_cleaner'
 
+  # Coveralls for ruby
+  gem 'coveralls', require: false
 end
