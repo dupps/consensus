@@ -15,14 +15,12 @@ ActiveRecord::Schema.define(version: 20150512132226) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "poll_id"
     t.integer  "choice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "answers", ["choice_id"], name: "index_answers_on_choice_id"
-  add_index "answers", ["poll_id"], name: "index_answers_on_poll_id"
   add_index "answers", ["user_id", "choice_id"], name: "index_answers_on_user_id_and_choice_id", unique: true
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 

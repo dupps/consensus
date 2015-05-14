@@ -1,4 +1,4 @@
-= form_tag answers_path, method: :post, remote: true, id: 'answer_form' do
+= form_tag answers_path, method: :post, id: 'answer_form' do
   = hidden_field_tag 'poll[id]', @poll.id
 
   = render partial: 'choice', collection: @poll.choices, as: :choice
@@ -6,7 +6,7 @@
     b Total votes: &nbsp;
     = @poll.answers_summary
 
-  - if current_user.answered_for?(@poll)
+  - if current_user.answered_for?(@poll) && !@hide_already_answered
     .alert.alert-warning You have already answered!
   - else
     = submit_tag 'Answer', class: 'btn btn-primary'

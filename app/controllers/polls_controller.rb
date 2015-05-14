@@ -11,6 +11,7 @@ class PollsController < ApplicationController
   # GET /polls/1.json
   def show
     @poll = Poll.includes(:choices).find_by_id(params[:id])
+    @hide_already_answered = params[:hide_already_answered]
   end
 
   # GET /polls/new
