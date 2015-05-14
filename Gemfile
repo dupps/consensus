@@ -34,12 +34,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Slim generators for Rails
 gem 'slim-rails'
+
 # Toolkit from Twitter designed to kickstart development of webapps and sites
 gem 'twitter-bootstrap-rails'
-# Use devise as flexible authentication solution for Rails
-gem 'devise'
+
 # Dynamic nested forms using jQuery
 gem 'cocoon'
+
+# Use devise as flexible authentication solution for Rails
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,10 +54,15 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  # Code coverage for Ruby
-  gem 'simplecov'
+  # Testing framework
+  gem 'rspec-rails'
+  gem 'rspec-activejob'
+  gem 'rspec-collection_matchers'
 
-  # Quiet Assets turns off the Rails asset pipeline log
-  gem 'quiet_assets'
+  # Db factories
+  gem 'factory_girl_rails'
+
+  # Cleaning the database after test runs
+  gem 'database_cleaner'
 
 end

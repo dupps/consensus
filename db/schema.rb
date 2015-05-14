@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150512132226) do
 
   add_index "answers", ["choice_id"], name: "index_answers_on_choice_id"
   add_index "answers", ["poll_id"], name: "index_answers_on_poll_id"
+  add_index "answers", ["user_id", "choice_id"], name: "index_answers_on_user_id_and_choice_id", unique: true
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "choices", force: :cascade do |t|
