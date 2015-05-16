@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :choices, through: :answers
   has_and_belongs_to_many :polls
 
+  validates_presence_of :email
   validates_uniqueness_of :email
 
   # Include default devise modules. Others available are:
