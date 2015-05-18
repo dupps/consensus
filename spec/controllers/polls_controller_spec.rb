@@ -22,7 +22,6 @@ RSpec.describe PollsController do
     end
   end
 
-
   context 'user is logged in' do
     login_user
 
@@ -98,6 +97,41 @@ RSpec.describe PollsController do
           post :create, poll: FactoryGirl.attributes_for(:poll)
           expect(response).to render_template :new
         end
+      end
+    end
+
+    describe 'PUT/PATCH update' do
+      context 'with valid attributes' do
+        it 'should update the poll' do
+          updated_attributes = { topic: 'new topic', description: 'new description' }
+          patch :update, id: @poll.id, poll: updated_attributes
+          @poll = Poll.find(@poll.id)
+          expect(@poll.topic).to eq(updated_attributes[:topic])
+          expect(@poll.description).to eq(updated_attributes[:description])
+        end
+
+        it 'redirects to the updated poll' do
+          patch :update, id: @poll.id, poll: {topic: 'new topic'}
+          expect(response).to redirect_to poll_url
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 're-renders the edit method' do
+          patch :update, id: @poll.id, poll: FactoryGirl.attributes_for(:poll, topic: nil)
+          expect(response).to render_template :edit
+        end
+      end
+    end
+
+    describe 'DELETE destroy' do
+      it 'should delete the poll' do
+        delete :destroy, { id: @poll.id }
+        expect(Poll.exists?(@poll.id)).to be false
+      end
+      it 'redirects to the polls overview' do
+        delete :destroy, { id: @poll.id }
+        expect(response).to redirect_to polls_url
       end
     end
 
