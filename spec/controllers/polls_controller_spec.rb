@@ -22,14 +22,15 @@ RSpec.describe PollsController do
     end
   end
 
-  describe 'GET show' do
-    context 'user is logged in' do
-      login_user
 
-      before :each do
-        @poll = create(:poll, users: [@user])
-      end
+  context 'user is logged in' do
+    login_user
 
+    before :each do
+      @poll = create(:poll, users: [@user])
+    end
+
+    describe 'GET show' do
       it 'responds with 200' do
         get :show, { id: @poll.id }
         expect(response.status).to eq 200
@@ -40,16 +41,8 @@ RSpec.describe PollsController do
         expect(response).to render_template 'show'
       end
     end
-  end
 
-  describe 'GET edit' do
-    context 'user is logged in' do
-      login_user
-
-      before :each do
-        @poll = create(:poll, users: [@user])
-      end
-
+    describe 'GET edit' do
       it 'responds with 200' do
         get :edit, { id: @poll.id }
         expect(response.status).to eq 200
@@ -60,16 +53,8 @@ RSpec.describe PollsController do
         expect(response).to render_template 'edit'
       end
     end
-  end
 
-  describe 'GET new' do
-    context 'user is logged in' do
-      login_user
-
-      before :each do
-        @poll = create(:poll, users: [@user])
-      end
-
+    describe 'GET new' do
       it 'responds with 200' do
         get :new, { id: @poll.id }
         expect(response.status).to eq 200
@@ -80,6 +65,41 @@ RSpec.describe PollsController do
         expect(response).to render_template 'new'
       end
     end
-  end
 
+    describe 'POST create' do
+      context 'with valid attributes' do
+        it 'creates a new poll' do
+          expect{
+            post :create, poll: {
+                            topic: 'Lunch',
+                            description: 'What shall we eat?',
+                            choices_attributes: {
+                                '12345' => {title: 'Burger', description: 'with fries'}
+                            }
+                          }
+          }.to change(Poll,:count).by(1)
+        end
+
+        it 'redirects to the new poll' do
+          post :create, poll: {
+                          topic: 'Lunch',
+                          description: 'What shall we eat?',
+                          choices_attributes: {
+                              '12345' => {title: 'Burger', description: 'with fries'}
+                          }
+                        }
+          expect(response).to redirect_to Poll.last
+        end
+      end
+
+      context 'with invalid attributes' do
+        it 're-renders the new method' do
+          # attributes_for gives no association attributes => invalid poll
+          post :create, poll: FactoryGirl.attributes_for(:poll)
+          expect(response).to render_template :new
+        end
+      end
+    end
+
+  end
 end
