@@ -37,4 +37,19 @@ RSpec.describe Poll do
     poll.valid?
     expect(poll.errors[:choices]).to include("can't be blank")
   end
+
+  it 'excludes polls that are not active' do
+    poll = FactoryGirl.build(:poll, :active => false)
+    expect(Poll.active).to_not include(poll)
+  end
+
+  it 'excludes polls that are not inactive' do
+    poll = FactoryGirl.build(:poll)
+    expect(Poll.inactive).to_not include(poll)
+  end
+
+  it 'excludes polls that are not expired' do
+    poll = FactoryGirl.build(:poll)
+    expect(Poll.expired).to_not include(poll)
+  end
 end
