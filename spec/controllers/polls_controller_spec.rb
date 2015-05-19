@@ -39,6 +39,13 @@ RSpec.describe PollsController do
         get :show, { id: @poll.id }
         expect(response).to render_template 'show'
       end
+
+      render_views
+      it 'should render the partials' do
+        get :show, { id: @poll.id }
+        expect(response).to render_template(:partial => '_answer_form')
+        expect(response).to render_template(:partial => '_choice')
+      end
     end
 
     describe 'GET edit' do
