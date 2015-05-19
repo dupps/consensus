@@ -20,6 +20,11 @@
       = f.label :expires, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.datetime_select :expires, {:minute_step => 15, :default => Time.now+2.hours, :order => [:day, :month, :year]}, {:class => 'form-control'}
+  .form-group
+    .form-inline
+      =f.label :active, class: 'col-sm-2 control-label'
+      .col-sm-10.checkbox
+        = f.check_box :active, {:checked => true}
 
   .form-group
     = f.label 'Choices', class: 'col-sm-2 control-label'

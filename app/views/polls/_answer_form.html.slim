@@ -8,7 +8,7 @@
 
   - if current_user.answered_for?(@poll) && !@hide_already_answered
     .alert.alert-warning You have already answered!
-  - else
+  - elsif (@scope != 'expired')
     = submit_tag 'Answer', class: 'btn btn-primary'
   end
 end

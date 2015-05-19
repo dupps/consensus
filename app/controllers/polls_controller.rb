@@ -4,7 +4,11 @@ class PollsController < ApplicationController
   # GET /polls
   # GET /polls.json
   def index
-    @polls = Poll.all
+    @polls = Poll.active
+    @scope = params[:scope]
+    @polls = Poll.all.expired if @scope == 'expired'
+    @polls = Poll.all.active if @scope == 'active'
+    @polls = Poll.all.inactive if @scope == 'inactive'
   end
 
   # GET /polls/1

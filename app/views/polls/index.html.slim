@@ -1,5 +1,14 @@
 ul.nav.navbar-nav.navbar-right
   li = link_to 'New Poll', new_poll_path
+  - if (@scope == 'active' || @scope == nil)
+    li = link_to 'Inactive Polls', polls_path(:scope => 'inactive')
+    li = link_to 'Expired Polls', polls_path(:scope => 'expired')
+  - elsif (@scope == 'inactive')
+    li = link_to 'Active Polls', polls_path(:scope => 'active')
+    li = link_to 'Expired Polls', polls_path(:scope => 'expired')
+  - elsif (@scope == 'expired')
+    li = link_to 'Active Polls', polls_path(:scope => 'active')
+    li = link_to 'Inactive Polls', polls_path(:scope => 'inactive')
   li = link_to current_user.email, destroy_user_session_path, :method => :delete
 h1 Listing polls
 
@@ -14,7 +23,8 @@ table class='table table-hover'
       th Expires
       th Voted
       th
-      th
+      - if (@scope != 'expired')
+        th
       th
 
   tbody
@@ -25,6 +35,10 @@ table class='table table-hover'
         td = poll.expires
         td
           .badge = poll.answers_summary
-        td = link_to 'Participate', poll, class: 'btn btn-default'
-        td = link_to 'Edit', edit_poll_path(poll), class: 'btn btn-default'
+        - if (@scope == 'active')
+          td = link_to 'Participate', poll, class: 'btn btn-default'
+        - else
+          td = link_to 'Show', poll, class: 'btn btn-default'
+        - if (@scope != 'expired')
+          td = link_to 'Edit', edit_poll_path(poll), class: 'btn btn-default'
         td = link_to 'Delete', poll, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'

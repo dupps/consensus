@@ -14,4 +14,16 @@ class Poll < ActiveRecord::Base
   def answers_summary
     choices.inject(0) {|summary, choice| summary + choice.answers.count}
   end
+
+  def self.active
+    where("created_at <= ? AND expires >= ? AND active = ?", Time.now, Time.now, true)
+  end
+
+  def self.inactive
+    where("created_at <= ? AND expires >= ? AND active = ?", Time.now, Time.now, false)
+  end
+
+  def self.expired
+    where("created_at <= ? AND expires <= ?", Time.now, Time.now)
+  end
 end
