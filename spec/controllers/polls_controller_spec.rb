@@ -70,6 +70,13 @@ RSpec.describe PollsController do
         get :new, { id: @poll.id }
         expect(response).to render_template 'new'
       end
+
+      render_views
+      it 'should render the partials' do
+        get :new, { id: @poll.id }
+        expect(response).to render_template(:partial => '_form')
+        expect(response).to render_template(:partial => '_choice_fields')
+      end
     end
 
     describe 'POST create' do
