@@ -67,4 +67,7 @@ group :development, :test do
 
   # Coveralls for ruby
   gem 'coveralls', require: false
+
+  # Simulating how a real user would interact with the app
+  gem 'capybara'
 end
